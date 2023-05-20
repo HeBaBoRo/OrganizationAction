@@ -22,8 +22,9 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
     )
     for templateFile in Path(templateFolder).glob('*.jinja2'):
         try:
-            print(templateFile)
-            template = env.get_template(name=templateFile)
+            print(templateFile.name)
+            print(templateFile.stem)
+            template = env.get_template(name=templateFile.name)
             out_data = template.render(data)
             # print(out_data)
         #             with open(output, "w") as file:
