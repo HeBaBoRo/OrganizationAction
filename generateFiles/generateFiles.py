@@ -3,7 +3,7 @@ import os
 from jinja2 import Environment, PackageLoader, select_autoescape
 
 def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
-    with open(dataFile, "r") as file:
+    with open("/".join([outputFolder, dataFile]), "r") as file:
         try:
             data = yaml.safe_load(file)
         except yaml.YAMLError as err:
