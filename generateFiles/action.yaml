@@ -1,0 +1,33 @@
+name: "Generate Files"
+description: "Generate Files"
+
+inputs:
+  config-file-name:
+    description: ""
+    required: true
+    default: "configVariables.yml"
+  config-files-location:
+    description: ""
+    required: true
+    default: "config"
+  output-location:
+    description: ""
+    required: true
+    default: "generated"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Join config files
+      shell: bash
+      run: joinConfig.sh ${{ inputs.config-files-location }} ${{ inputs.output-location }} ${{ inputs.config-file-name }}
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11.0
+    - name: Install pip requirements
+      shell: bash
+      run: pip3 install -r requirements.txt
+    - name: Generate files
+      shell: bash
+      run: python3 generateFiles.py ${{ inputs.output-location }} ${{ inputs.config-file-name }}

@@ -1,0 +1,21 @@
+name: "Validate Config"
+description: "Validate Config"
+
+inputs:
+  to:
+    description: "The person or thing to say hello to"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11.0
+    - name: Install pip requirements
+      shell: bash
+      run: pip3 install -r requirements.txt
+    - name: Validate Config files
+      shell: bash
+      run: python3 validateConfig.py

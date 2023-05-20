@@ -1,0 +1,169 @@
+# Configure the GitHub Provider
+provider "github" {
+  token = var.github-token
+  owner = "HeBaBoRo"
+}
+
+provider "tfe" {
+  token    = var.terraform-token
+}
+
+data "github_organization" "github_organization_ZeewoldeSpeelt" {
+  name = "ZeewoldeSpeelt"
+}
+
+####### Add users to the GitHub organization
+{%- for member in members -%}
+  {%- if member.github is defined %}
+resource "github_membership" "membership_for_{{member.github.username|trim}}" {
+  username = "{{ member.github.username }}"
+  role     = "{{ member.github.role|default("member") }}"
+}
+  {% endif %}
+{%- endfor %}
+####### Create GitHub teams
+{%- for team in teams -%}
+  {%- if team.is_github_team %}
+resource "github_team" "team_{{ team.name|trim|replace(" ", "_") }}_{{ team.name|trim|replace(" ", "_") }}" {
+  name        = "{{ team.name }}"
+  description = "{{ team.description|default("") }}"
+  privacy     = "closed"
+}
+    {% for member in members -%}
+      {%- if member.github is defined and member.github.teams is defined %}
+        {%- for member_team in member.github.teams -%}
+          {%- if member_team.name == team.name %}
+resource "github_team_membership" "team_membership_{{ team.name|trim|replace(" ", "_") }}_{{member.github.username|trim}}" {
+  team_id  = github_team.team_{{ team.name|trim|replace(" ", "_") }}_{{ team.name|trim|replace(" ", "_") }}.id
+  username = "{{ member.github.username }}"
+  role     = "{{ member_team.role|default("member")|lower }}"
+}
+          {% endif %}
+        {%- endfor -%}
+      {% endif %}
+    {%- endfor -%}
+  {% endif %}
+  {%- if team.is_github_team is defined and team.is_github_team and team.github is defined and team.github.repositories is defined %}
+    {%- for repo in team.github.repositories %}
+resource "github_team_repository" "github_team_repository_team_{{ team.name|trim|replace(" ", "_") }}_repository_{{ repo.name|trim|replace(" ", "_") }}" {
+  team_id    = github_team.team_{{ team.name|trim|replace(" ", "_") }}_{{ team.name|trim|replace(" ", "_") }}.id
+  repository = github_repository.repository_{{ repo.name|trim|replace(" ", "_") }}.name
+  permission = "{{ repo.permission|default("pull")}}"
+  depends_on = [
+    github_repository.repository_{{ repo.name|trim|replace(" ", "_") }}
+  ]
+}
+    {%- endfor %}
+  {% endif %}
+{%- endfor %}
+  {%- for team in teams %}
+  {%- endfor %}
+####### Create GitHub repositories
+{%- for repo in github.repositories %}
+resource "github_repository" "repository_{{ repo.name|trim|replace(" ", "_") }}" {
+  allow_merge_commit          = {{ repo.allow_merge_commit|default("true")|lower }}
+  allow_squash_merge          = {{ repo.allow_squash_merge|default("true")|lower }}
+  allow_rebase_merge          = {{ repo.allow_rebase_merge|default("true")|lower }}
+  allow_auto_merge            = {{ repo.allow_auto_merge|default("true")|lower }}
+  archive_on_destroy          = {{ repo.archive_on_destroy|default("true")|lower }}
+  archived                    = {{ repo.archive_on_destroy|default("false")|lower }}
+  auto_init                   = {{ repo.auto_init|default("true")|lower }}
+  delete_branch_on_merge      = {{ repo.delete_branch_on_merge|default("true")|lower }}
+  {%- if repo.description is defined %}
+  description                 = "{{ repo.description|trim }}"
+  {% endif %}
+  {%- if repo.gitignore_template is defined %}
+  gitignore_template          = "{{ repo.gitignore_template|trim }}"
+  {% endif %}
+  has_discussions             = {{ repo.has_discussions|default("true")|lower }}
+  has_issues                  = {{ repo.has_issues|default("true")|lower }}
+  has_projects                = {{ repo.has_projects|default("true")|lower }}
+  has_wiki                    = {{ repo.has_wiki|default("true")|lower }}
+  {%- if repo.homepage_url is defined %}
+  homepage_url                = "{{ repo.homepage_url }}"
+  {% endif %}
+  is_template                 = {{ repo.is_template|default("false")|lower }}
+  {%- if repo.license_template is defined %}
+  license_template            = "{{ repo.license_template|trim }}"
+  {% endif %}
+  {%- if repo.merge_commit_message is defined %}
+  merge_commit_message        = "{{ repo.merge_commit_message|trim|upper }}"
+  {% endif %}
+  {%- if repo.merge_commit_title is defined %}
+  merge_commit_title          = "{{ repo.merge_commit_title|trim|upper }}"
+  {% endif %}
+  name                        = "{{ repo.name|trim|replace(" ", "_") }}"
+  {%- if repo.pages is defined %}
+  pages {
+    source {
+      branch                  = "{{ repo.pages.source.branch|trim|replace(" ", "_") }}"
+    {%- if repo.pages is defined %}
+      path                    = "{{ repo.pages.source.path|trim }}"
+    {% endif %}
+    }
+  }
+  {% endif %}
+  #   private                 = false|true <-overwritten by visibility
+  {%- if repo.squash_merge_commit_message is defined %}
+  squash_merge_commit_title   = "{{ repo.squash_merge_commit_message|trim|upper }}"
+  {% endif %}
+  {%- if repo.squash_merge_commit_title is defined %}
+  squash_merge_commit_title   = "{{ repo.squash_merge_commit_title|trim|upper }}"
+  {% endif %}
+  visibility                  = "{{ repo.visibility|default("private")|lower }}"
+  vulnerability_alerts        = {{ repo.vulnerability_alerts|default("true")|lower }}
+}
+  {% if repo.default_branch is defined %}
+resource "github_branch_default" "branch_default_{{ repo.name|trim|replace(" ", "_") }}" {
+  repository = github_repository.repository_{{ repo.name|trim|replace(" ", "_") }}.name
+  branch     = "{{ repo.default_branch|trim|replace(" ", "_") }}"
+  depends_on = [
+    github_branch.branch_{{ repo.name|trim|replace(" ", "_") }}_{{ repo.default_branch|trim|replace(" ", "_") }}
+  ]
+}
+  {% else %}
+resource "github_branch_default" "branch_default_{{ repo.name|trim|replace(" ", "_") }}" {
+  repository = github_repository.repository_{{ repo.name|trim|replace(" ", "_") }}.name
+  branch     = "main"
+}
+  {% endif %}
+  {%- for branch in repo.branches %}
+resource "github_branch" "branch_{{ repo.name|trim|replace(" ", "_") }}_{{ branch.name|trim|replace(" ", "_") }}" {
+  repository = github_repository.repository_{{ repo.name|trim|replace(" ", "_") }}.name
+  branch     = "{{ branch.name|trim|replace(" ", "_") }}"
+    {%- if branch.name != repo.default_branch %}
+  source_branch = github_branch_default.branch_default_{{ repo.name|trim|replace(" ", "_") }}.branch
+  depends_on = [
+    github_branch_default.branch_default_{{ repo.name|trim|replace(" ", "_") }}
+  ]
+    {% endif %}
+}
+
+    {%- if branch.protection is defined %}
+resource "github_branch_protection" "branch_protection_{{ repo.name|trim|replace(" ", "_") }}_{{ branch.name|trim|replace(" ", "_") }}" {
+  count = data.github_organization.github_organization_ZeewoldeSpeelt.plan != "free" ? 1 : 0
+  repository_id = github_repository.repository_{{ repo.name|trim|replace(" ", "_") }}.node_id
+  # also accepts repository name
+  # repository_id  = github_repository.repository_{{ repo.name|trim|replace(" ", "_") }}.name
+
+  pattern          = "{{ branch.name|trim|replace(" ", "_") }}"
+  enforce_admins   = {{ branch.protection.enforce_admins|default("true")|lower }}
+  allows_deletions = {{ branch.protection.allows_deletions|default("false")|lower }}
+
+  required_status_checks {
+    strict   = {{ branch.protection.required_status_checks.strict|default("true")|lower }}
+    contexts = {{ branch.protection.required_status_checks.contexts|default([]) }}
+  }
+
+  required_pull_request_reviews {
+    dismiss_stale_reviews  = {{ branch.protection.required_pull_request_reviews.dismiss_stale_reviews|default("true")|lower }}
+    restrict_dismissals    = {{ branch.protection.required_pull_request_reviews.restrict_dismissals|default("true")|lower }}
+    dismissal_restrictions = {{ branch.protection.required_pull_request_reviews.dismissal_restrictions|default([]) }}
+  }
+
+  push_restrictions = {{ branch.protection.push_restrictions|default([]) }}
+
+}
+    {% endif %}
+  {%- endfor %}
+{%- endfor %}
