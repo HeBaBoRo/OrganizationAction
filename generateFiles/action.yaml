@@ -20,7 +20,9 @@ runs:
   steps:
     - name: Join config files
       shell: bash
-      run: $GITHUB_ACTION_PATH/joinConfig.sh ${{ inputs.config-files-location }} ${{ inputs.output-location }} ${{ inputs.config-file-name }}
+      run: |
+        chmod +x $GITHUB_ACTION_PATH/joinConfig.sh
+        $GITHUB_ACTION_PATH/joinConfig.sh ${{ inputs.config-files-location }} ${{ inputs.output-location }} ${{ inputs.config-file-name }}
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
