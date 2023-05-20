@@ -1,0 +1,13 @@
+name: "Hello"
+description: "Say hello"
+
+inputs:
+  to:
+    description: "The person or thing to say hello to"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Say hello
+      run: echo "Hello ${{ inputs.to }"
