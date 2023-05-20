@@ -1,6 +1,6 @@
 import yaml
 import os
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
 
 def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
     data = "Some string"
