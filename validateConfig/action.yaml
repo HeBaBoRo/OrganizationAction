@@ -15,7 +15,7 @@ runs:
         python-version: 3.11.0
     - name: Install pip requirements
       shell: bash
-      run: pip3 install -r requirements.txt
+      run: pip3 install -r $GITHUB_ACTION_PATH/requirements.txt
     - name: Validate Config files
       shell: bash
-      run: python3 validateConfig.py
+      run: python3 $GITHUB_ACTION_PATH/validateConfig.py
