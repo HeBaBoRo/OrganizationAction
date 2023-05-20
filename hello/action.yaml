@@ -10,4 +10,5 @@ runs:
   using: "composite"
   steps:
     - name: Say hello
+      shell: bash
       run: echo "Hello ${{ inputs.to }}"
