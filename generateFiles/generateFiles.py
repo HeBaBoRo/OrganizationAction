@@ -1,6 +1,6 @@
 import yaml
 import os
-from jinja2 import Environment, PackageLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
     data = "Some string"
@@ -20,6 +20,7 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
     )
     for templateFile in Path(templateFolder).glob('*.jinja2'):
         try:
+            print(templateFile)
             template = env.get_template(name=templateFile)
             out_data = template.render(data)
             print(out_data)
