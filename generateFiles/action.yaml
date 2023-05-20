@@ -6,7 +6,7 @@ inputs:
     description: ""
     required: true
     default: "configVariables.yml"
-  config-files-location:
+  location-config-files:
     description: ""
     required: true
     default: "config"
@@ -22,7 +22,7 @@ runs:
       shell: bash
       run: |
         chmod +x $GITHUB_ACTION_PATH/joinConfig.sh
-        $GITHUB_ACTION_PATH/joinConfig.sh ${{ inputs.config-files-location }} ${{ inputs.output-location }} ${{ inputs.config-file-name }}
+        $GITHUB_ACTION_PATH/joinConfig.sh ${{ inputs.location-config-files }} ${{ inputs.output-location }} ${{ inputs.config-file-name }}
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
