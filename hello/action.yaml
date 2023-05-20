@@ -10,4 +10,4 @@ runs:
   using: "composite"
   steps:
     - name: Say hello
-      run: echo "Hello ${{ inputs.to }"
+      run: echo "Hello ${{ inputs.to }}"
