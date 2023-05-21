@@ -17,7 +17,7 @@ def loadFile(filename):
 
 def validateConfig(dataFile, dataFileFolder, schemaFileFolder):
     dataFileSplit = dataFile.split(".")
-    schemaFile = schemaFileFolder + dataFileSplit[0] + "Schema." + dataFileSplit[1]
+    schemaFile = schemaFileFolder + "/" + dataFileSplit[0] + "Schema." + dataFileSplit[1]
 
     data = loadFile("/".join([dataFileFolder, dataFile]))
     schema = loadFile(schemaFile)
