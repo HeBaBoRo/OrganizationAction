@@ -1,7 +1,6 @@
 from jsonschema import validate
-from schema import Schema, SchemaError
 import yaml
-import os
+import sys
 
 
 def loadFile(filename):
@@ -13,9 +12,9 @@ def loadFile(filename):
             print(err)
 
 
-def validateConfig(dataFile, schemaFile):
-    data = loadFile(dataFile)
-    schema = loadFile(schemaFile)
+def validateConfig(actionPath, dataFile, schemaFile):
+    data = loadFile("/".join([actionPath, dataFile]))
+    schema = loadFile("/".join([actionPath, schemaFile]))
 
     validate(data, schema) # passes
 
@@ -27,7 +26,9 @@ def validateConfig(dataFile, schemaFile):
 
 
 def main():
-    validateConfig(dataFile="/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/members.yml", schemaFile="/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/membersSchema.yml")
+    actionPath = sys.argv[1]
+    print(actionPath)
+    validateConfig(actionPath=actionPath, dataFile="configSchemas/members.yml", schemaFile="configSchemas/membersSchema.yml")
 
 
 if __name__ == "__main__":
