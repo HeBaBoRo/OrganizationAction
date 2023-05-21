@@ -1,3 +1,40 @@
 ---
 type: object
-additionalProperties: true
+additionalProperties: false
+required:
+  - terraform
+properties:
+  terraform:
+    type: object
+    additionalProperties: true
+#    required:
+#      - name
+    properties:
+      variables:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required:
+            - name
+          properties:
+            name:
+              type:  string
+            description:
+              type: string
+      additional-providers:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required:
+            - name
+            - source
+            - version
+          properties:
+            name:
+              type: string
+            source:
+              type: string
+            version:
+              type: string
