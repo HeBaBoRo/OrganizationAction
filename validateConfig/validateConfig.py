@@ -39,7 +39,21 @@ good_instance = """
 testing: ['this', 'is', 'a', 'test']
 """
 
-validate(yaml.full_load("./configSchemas/members.yml"), yaml.full_load("./configSchemas/membersSchema.yml")) # passes
+data = ""
+with open("./configSchema/members.yml", "r") as file:
+    try:
+        data = yaml.safe_load(file)
+    except yaml.YAMLError as err:
+        print(err)
+
+schema = ""
+with open("./configSchema/membersSchema.yml", "r") as file:
+    try:
+        schema = yaml.safe_load(file)
+    except yaml.YAMLError as err:
+        print(err)
+
+validate(yaml.full_load(data), yaml.full_load(schema)) # passes
 
 bad_instance = """
 testing: ['this', 'is', 'a', 'bad', 'test']
