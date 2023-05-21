@@ -34,7 +34,7 @@ def getUnvalidatableFiles(schemaFolderPath, configFolderPath):
     for configFilePath in os.listdir(configFolderPath):
         configFile = Path(configFilePath)
         if configFile.stem + "Schema" + configFile.suffix not in schemas:
-            unvalidatable.append(configFile)
+            unvalidatable.append(configFile.name)
     return unvalidatable
 
 
@@ -44,7 +44,7 @@ def getValidatableFiles(schemaFolderPath, configFolderPath):
     for configFilePath in os.listdir(configFolderPath):
         configFile = Path(configFilePath)
         if configFile.stem + "Schema" + configFile.suffix in schemas:
-            validatable.append(configFile)
+            validatable.append(configFile.name)
     return validatable
 
 
