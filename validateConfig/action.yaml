@@ -18,4 +18,4 @@ runs:
       run: pip3 install -r $GITHUB_ACTION_PATH/requirements.txt
     - name: Validate Config files
       shell: bash
-      run: python3 $GITHUB_ACTION_PATH/validateConfig.py ${{ GITHUB_ACTION_PATH }}
+      run: python3 $GITHUB_ACTION_PATH/validateConfig.py $GITHUB_ACTION_PATH
