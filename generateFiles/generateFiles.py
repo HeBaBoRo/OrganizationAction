@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
 
@@ -29,6 +30,7 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
                 file.write("/".join([outputFolder, out_data]))
         except Exception as err:
             print(err)
+    print(os.listdir(outputFolder))
 
 
 def main():
