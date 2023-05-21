@@ -11,7 +11,7 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
             data = yaml.safe_load(file)
         except yaml.YAMLError as err:
             print(err)
-    print(data)
+    # print(data)
 
     env = Environment(
         loader=FileSystemLoader(templateFolder),
@@ -26,7 +26,7 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
             out_data = template.render(data)
             print(out_data)
             with open(templateFile.stem, "w") as file:
-                file.write(out_data)
+                file.write("/".join([outputFolder, out_data]))
         except Exception as err:
             print(err)
 

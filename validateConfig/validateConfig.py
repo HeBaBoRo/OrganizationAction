@@ -8,7 +8,6 @@ import sys
 
 def loadFile(filename):
     with open(filename, "r") as file:
-    # with open("/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/members.yml", "r") as file:
         try:
             return yaml.safe_load(file)
         except yaml.YAMLError as err:
@@ -17,10 +16,11 @@ def loadFile(filename):
 
 def validateConfig(dataFile, dataFileFolder, schemaFileFolder):
     dataFileSplit = dataFile.split(".")
-    schemaFile = schemaFileFolder + "/" + dataFileSplit[0] + "Schema." + dataFileSplit[1]
+    schemaFile = dataFileSplit[0] + "Schema." + dataFileSplit[1]
+    schemaFilePath = schemaFileFolder + "/" + schemaFile
 
     data = loadFile("/".join([dataFileFolder, dataFile]))
-    schema = loadFile(schemaFile)
+    schema = loadFile(schemaFilePath)
 
     print("validating " + dataFile + " with schema " + schemaFile)
 
