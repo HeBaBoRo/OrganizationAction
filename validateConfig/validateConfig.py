@@ -40,14 +40,14 @@ testing: ['this', 'is', 'a', 'test']
 """
 
 data = ""
-with open("./configSchema/members.yml", "r") as file:
+with open("./configSchemas/members.yml", "r") as file:
     try:
         data = yaml.safe_load(file)
     except yaml.YAMLError as err:
         print(err)
 
 schema = ""
-with open("./configSchema/membersSchema.yml", "r") as file:
+with open("./configSchemas/membersSchema.yml", "r") as file:
     try:
         schema = yaml.safe_load(file)
     except yaml.YAMLError as err:
