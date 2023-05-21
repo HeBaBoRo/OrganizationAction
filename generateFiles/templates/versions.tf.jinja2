@@ -1,0 +1,33 @@
+terraform {
+  required_version = ">= 1.4.0"
+  required_providers {
+    github = {
+      source = "integrations/github"
+      version = "5.19.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.5.1"
+    }
+    tfe = {
+      source = "hashicorp/tfe"
+      version = "0.44.1"
+    }
+{%- if terraform is defined -%}
+{%- if terraform.additional_providers is defined -%}
+{%- for provider in terraform.additional_providers -%}
+    {{ provider.name }} = {
+    source = {{ provider.source }}
+    version = {{ provider.version }}
+    }
+{%- endfor %}
+{% endif %}
+{% endif %}
+  }
+  cloud {
+    organization = "GitHub-Zeewolde-Speelt"
+    workspaces {
+      name = "Base-Repo"
+    }
+  }
+}
