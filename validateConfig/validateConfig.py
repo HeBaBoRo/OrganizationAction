@@ -1,3 +1,4 @@
+from jsonschema import validate
 from schema import Schema, SchemaError
 import yaml
 
@@ -12,10 +13,36 @@ api:
     token: 12345
 """
 
-configuration = yaml.safe_load(conf_yaml)
+# configuration = yaml.safe_load(conf_yaml)
+#
+# try:
+#     config_schema.validate(configuration)
+#     print("Configuration is valid.")
+# except SchemaError as se:
+#     raise se
 
-try:
-    config_schema.validate(configuration)
-    print("Configuration is valid.")
-except SchemaError as se:
-    raise se
+
+schema = """
+type: object
+properties:
+  testing:
+    type: array
+    items:
+      enum:
+        - this
+        - is
+        - a
+        - test
+"""
+
+good_instance = """
+testing: ['this', 'is', 'a', 'test']
+"""
+
+validate(yaml.load(good_instance), yaml.load(schema)) # passes
+
+bad_instance = """
+testing: ['this', 'is', 'a', 'bad', 'test']
+"""
+
+validate(yaml.load(bad_instance), yaml.load(schema))
