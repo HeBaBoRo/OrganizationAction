@@ -1,6 +1,7 @@
 from jsonschema import validate
 from schema import Schema, SchemaError
 import yaml
+import os
 
 config_schema = Schema({
     "api": {
@@ -38,6 +39,8 @@ properties:
 good_instance = """
 testing: ['this', 'is', 'a', 'test']
 """
+
+print(os.getcwd())
 
 data = ""
 with open("configSchemas/members.yml", "r") as file:
