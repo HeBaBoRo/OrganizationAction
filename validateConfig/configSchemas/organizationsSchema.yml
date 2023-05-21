@@ -1,3 +1,23 @@
 ---
 type: object
 additionalProperties: true
+required:
+  - organizations
+properties:
+  organizations:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        types:
+          type: array
+          items:
+            type: string
+            pattern: "^(DataDog|GitHub|Terraform Cloud)$"
+          minItems: 1
+          uniqueItems: true
