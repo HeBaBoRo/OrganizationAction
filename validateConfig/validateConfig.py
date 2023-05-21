@@ -53,8 +53,10 @@ def main():
     configFolderPath = sys.argv[1]
     print(actionPath)
 
-    if len(getUnvalidatableFiles(schemaFolderPath="/".join([actionPath, "configSchemas"]),
-                                 configFolderPath=configFolderPath)) > 0:
+    unvalidatableFiles = getUnvalidatableFiles(schemaFolderPath="/".join([actionPath, "configSchemas"]),
+                                  configFolderPath=configFolderPath)
+    if len(unvalidatableFiles) > 0:
+        print(unvalidatableFiles)
         raise Exception("Unvalidatable files found!")
 
     for validatableFile in getValidatableFiles(schemaFolderPath="/".join([actionPath, "configSchemas"]),
