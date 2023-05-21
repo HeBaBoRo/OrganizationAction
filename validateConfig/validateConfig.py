@@ -56,7 +56,7 @@ with open("/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateC
     except yaml.YAMLError as err:
         print(err)
 
-validate(yaml.full_load(data), yaml.full_load(schema)) # passes
+validate(data, schema) # passes
 
 bad_instance = """
 testing: ['this', 'is', 'a', 'bad', 'test']
