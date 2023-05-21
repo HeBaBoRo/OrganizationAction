@@ -32,7 +32,7 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
             print(err)
     print(os.listdir(outputFolder))
     with open("/".join([outputFolder, "main.tf"]), "r") as file:
-        print(file)
+        print(file.read())
 
 
 def main():
