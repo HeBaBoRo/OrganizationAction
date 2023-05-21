@@ -22,7 +22,7 @@ properties:
               type:  string
             description:
               type: string
-      additional-providers:
+      additional_providers:
         type: array
         items:
           type: object

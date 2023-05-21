@@ -12,7 +12,6 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
             data = yaml.safe_load(file)
         except yaml.YAMLError as err:
             print(err)
-    # print(data)
 
     env = Environment(
         loader=FileSystemLoader(templateFolder),
@@ -31,10 +30,6 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
         except Exception as err:
             print(err)
     print(os.listdir(outputFolder))
-    with open("/".join([outputFolder, "main.tf"]), "r") as file:
-        print(file.read())
-    statbuf = os.stat("/".join([outputFolder, "main.tf"]))
-    print("Modification time: {}".format(statbuf.st_mtime))
 
 
 def main():

@@ -32,13 +32,13 @@ properties:
             role:
               type: string
               pattern: "^(member|admin)$"
-            teams:
-              type: array
-              items:
-                type: object
-                additionalProperties: false
-                required:
-                  - name
-                properties:
-                  name:
-                    type: string
+        teams:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required:
+              - name
+            properties:
+              name:
+                type: string
