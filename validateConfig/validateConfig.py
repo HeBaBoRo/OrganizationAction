@@ -43,14 +43,14 @@ testing: ['this', 'is', 'a', 'test']
 print(os.getcwd())
 
 data = ""
-with open("configSchemas/members.yml", "r") as file:
+with open("/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/members.yml", "r") as file:
     try:
         data = yaml.safe_load(file)
     except yaml.YAMLError as err:
         print(err)
 
 schema = ""
-with open("configSchemas/membersSchema.yml", "r") as file:
+with open("/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/membersSchema.yml", "r") as file:
     try:
         schema = yaml.safe_load(file)
     except yaml.YAMLError as err:
