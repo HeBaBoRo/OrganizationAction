@@ -2,9 +2,10 @@ name: "Validate Config"
 description: "Validate Config"
 
 inputs:
-  to:
-    description: "The person or thing to say hello to"
+  location-config-files:
+    description: ""
     required: true
+    default: "config"
 
 runs:
   using: "composite"
@@ -18,4 +19,4 @@ runs:
       run: pip3 install -r $GITHUB_ACTION_PATH/requirements.txt
     - name: Validate Config files
       shell: bash
-      run: python3 $GITHUB_ACTION_PATH/validateConfig.py $GITHUB_ACTION_PATH
+      run: python3 $GITHUB_ACTION_PATH/validateConfig.py $GITHUB_ACTION_PATH ${{ inputs.location-config-files }}
