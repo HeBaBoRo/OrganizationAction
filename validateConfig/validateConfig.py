@@ -15,11 +15,11 @@ def loadFile(filename):
             print(err)
 
 
-def validateConfig(dataFile, schemaFileFolder):
+def validateConfig(dataFile, dataFileFolder, schemaFileFolder):
     dataFileSplit = dataFile.split(".")
     schemaFile = schemaFileFolder + dataFileSplit[0] + "Schema." + dataFileSplit[1]
 
-    data = loadFile(dataFile)
+    data = loadFile("/".join([dataFileFolder, dataFile]))
     schema = loadFile(schemaFile)
 
     print("validating " + dataFile + " with schema " + schemaFile)
@@ -66,7 +66,8 @@ def main():
 
     for validatableFile in getValidatableFiles(schemaFolderPath="/".join([actionPath, "configSchemas"]),
                                                configFolderPath=configFolderPath):
-        validateConfig(dataFile="/".join([configFolderPath, validatableFile]),
+        validateConfig(dataFile=validatableFile,
+                       dataFileFolder=configFolderPath,
                        schemaFileFolder="/".join([actionPath, "configSchemas"]))
 
 
