@@ -15,20 +15,22 @@ properties:
         name:
           type: string
         organizations:
-          type: object
-          additionalProperties: false
-          required:
-            - name
-          properties:
-            name:
-              type: string
-            exclude:
-              type: array
-              items:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required:
+              - name
+            properties:
+              name:
                 type: string
-                pattern: "^(DataDog|GitHub|Terraform Cloud)$"
-              minItems: 1
-              uniqueItems: true
+              exclude:
+                type: array
+                items:
+                  type: string
+                  pattern: "^(DataDog|GitHub|Terraform Cloud)$"
+                minItems: 1
+                uniqueItems: true
 #        is_datadog_team:
 #          type: boolean
 #        is_github_team:
