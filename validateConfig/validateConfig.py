@@ -26,12 +26,6 @@ def validateConfig(dataFile, dataFileFolder, schemaFileFolder):
 
     validate(data, schema) # passes
 
-    bad_instance = """
-    testing: ['this', 'is', 'a', 'bad', 'test']
-    """
-
-    validate(yaml.full_load(bad_instance), schema)
-
 
 def getUnvalidatableFiles(schemaFolderPath, configFolderPath):
     unvalidatable = []
