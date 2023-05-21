@@ -39,7 +39,7 @@ good_instance = """
 testing: ['this', 'is', 'a', 'test']
 """
 
-validate(yaml.full_load(good_instance), yaml.full_load(schema)) # passes
+validate(yaml.full_load("./configSchemas/members.yml"), yaml.full_load("./configSchemas/membersSchema.yml")) # passes
 
 bad_instance = """
 testing: ['this', 'is', 'a', 'bad', 'test']

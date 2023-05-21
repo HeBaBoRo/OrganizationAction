@@ -1,0 +1,11 @@
+members:
+  - email: 'hbbrollof@gmail.com'
+    github:
+      username: 'BobbyRollof'
+      role: 'admin'
+      teams:
+        - name: Team 1
+        - name: Team 2
+        - name: DevOps
+    discord:
+      role: 'admin'
