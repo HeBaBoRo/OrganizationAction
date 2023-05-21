@@ -3,63 +3,32 @@ from schema import Schema, SchemaError
 import yaml
 import os
 
-config_schema = Schema({
-    "api": {
-        "token": str
-    }
-})
 
-conf_yaml = """
-api:
-    token: 12345
-"""
-
-# configuration = yaml.safe_load(conf_yaml)
-#
-# try:
-#     config_schema.validate(configuration)
-#     print("Configuration is valid.")
-# except SchemaError as se:
-#     raise se
+def loadFile(filename):
+    with open(filename, "r") as file:
+    # with open("/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/members.yml", "r") as file:
+        try:
+            return yaml.safe_load(file)
+        except yaml.YAMLError as err:
+            print(err)
 
 
-schema = """
-type: object
-properties:
-  testing:
-    type: array
-    items:
-      enum:
-        - this
-        - is
-        - a
-        - test
-"""
+def validateConfig(dataFile, schemaFile):
+    data = loadFile(dataFile)
+    schema = loadFile(schemaFile)
 
-good_instance = """
-testing: ['this', 'is', 'a', 'test']
-"""
+    validate(data, schema) # passes
 
-print(os.getcwd())
+    bad_instance = """
+    testing: ['this', 'is', 'a', 'bad', 'test']
+    """
 
-data = ""
-with open("/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/members.yml", "r") as file:
-    try:
-        data = yaml.safe_load(file)
-    except yaml.YAMLError as err:
-        print(err)
+    validate(yaml.full_load(bad_instance), schema)
 
-schema = ""
-with open("/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/membersSchema.yml", "r") as file:
-    try:
-        schema = yaml.safe_load(file)
-    except yaml.YAMLError as err:
-        print(err)
 
-validate(data, schema) # passes
+def main():
+    validateConfig(dataFile="/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/members.yml", schemaFile="/home/runner/work/_actions/HeBaBoRo/OrganizationAction/main/validateConfig/configSchemas/membersSchema.yml")
 
-bad_instance = """
-testing: ['this', 'is', 'a', 'bad', 'test']
-"""
 
-validate(yaml.full_load(bad_instance), schema)
+if __name__ == "__main__":
+    main()
