@@ -62,7 +62,7 @@ properties:
                         properties:
                           strict:
                             type: boolean
-                          context:
+                          contexts:
                             type: array
                       required_pull_request_reviews:
                         type: object
