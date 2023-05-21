@@ -39,10 +39,10 @@ good_instance = """
 testing: ['this', 'is', 'a', 'test']
 """
 
-validate(yaml.full_load(good_instance), yaml.load(schema)) # passes
+validate(yaml.full_load(good_instance), yaml.full_load(schema)) # passes
 
 bad_instance = """
 testing: ['this', 'is', 'a', 'bad', 'test']
 """
 
-validate(yaml.full_load(bad_instance), yaml.load(schema))
+validate(yaml.full_load(bad_instance), yaml.full_load(schema))
