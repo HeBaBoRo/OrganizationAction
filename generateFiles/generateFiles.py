@@ -31,6 +31,8 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
         except Exception as err:
             print(err)
     print(os.listdir(outputFolder))
+    with open("/".join([outputFolder, "main.tf"]), "r") as file:
+        print(file)
 
 
 def main():
