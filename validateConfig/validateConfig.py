@@ -50,7 +50,7 @@ def getValidatableFiles(schemaFolderPath, configFolderPath):
 
 def main():
     actionPath = sys.argv[1]
-    configFolderPath = sys.argv[1]
+    configFolderPath = sys.argv[2]
     print(actionPath)
 
     unvalidatableFiles = getUnvalidatableFiles(schemaFolderPath="/".join([actionPath, "configSchemas"]),
