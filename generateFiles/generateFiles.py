@@ -26,8 +26,8 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
             template = env.get_template(name=templateFile.name)
             out_data = template.render(data)
             print(out_data)
-            with open(templateFile.stem, "w") as file:
-                file.write("/".join(["/home/runner/work/Base-Repo/Base-Repo", outputFolder, out_data]))
+            with open("/".join([outputFolder, templateFile.stem]), "w") as file:
+                file.write(out_data)
         except Exception as err:
             print(err)
     print(os.listdir(outputFolder))
