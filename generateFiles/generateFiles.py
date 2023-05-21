@@ -33,6 +33,8 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
     print(os.listdir(outputFolder))
     with open("/".join([outputFolder, "main.tf"]), "r") as file:
         print(file.read())
+    statbuf = os.stat("/".join([outputFolder, "main.tf"]))
+    print("Modification time: {}".format(statbuf.st_mtime))
 
 
 def main():
