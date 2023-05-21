@@ -19,6 +19,8 @@ def validateConfig(dataFile, schemaFile):
     data = loadFile(dataFile)
     schema = loadFile(schemaFile)
 
+    print("validating " + dataFile + " with schema " + schemaFile)
+
     validate(data, schema) # passes
 
     bad_instance = """
