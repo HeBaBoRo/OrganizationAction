@@ -30,3 +30,69 @@ properties:
               type: boolean
             default_branch:
               type: string
+            branches:
+              type: array
+              items:
+                type: object
+                additionalProperties: false
+                required:
+                  - name
+                properties:
+                  name:
+                    type: string
+                  protection:
+                    type: object
+                    additionalProperties: false
+#                    required:
+#                      - repositories
+                    properties:
+                      enforce_admins:
+                        type: boolean
+                      require_signed_commits:
+                        type: boolean
+                      required_linear_history:
+                        type: boolean
+                      require_conversation_resolution:
+                        type: boolean
+                      required_status_checks:
+                        type: object
+                        additionalProperties: false
+                        required:
+                          - strict
+                        properties:
+                          strict:
+                            type: boolean
+                          context:
+                            type: array
+                      required_pull_request_reviews:
+                        type: object
+                        additionalProperties: false
+#                        required:
+#                          - strict
+                        properties:
+                          dismiss_stale_reviews:
+                            type: boolean
+                          restrict_dismissals:
+                            type: boolean
+                          dismissal_restrictions:
+                            type: array
+                          pull_request_bypassers:
+                            type: array
+                          require_code_owner_reviews:
+                            type: boolean
+                          required_approving_review_count:
+                            type: integer
+                            minimum: 1
+                            maximum: 6
+                          require_last_push_approval:
+                            type: boolean
+                      push_restrictions:
+                        type: array
+                      allows_deletions:
+                        type: boolean
+                      allows_force_pushes:
+                        type: boolean
+                      blocks_creations:
+                        type: boolean
+                      lock_branch:
+                        type: boolean
