@@ -62,4 +62,4 @@ bad_instance = """
 testing: ['this', 'is', 'a', 'bad', 'test']
 """
 
-validate(yaml.full_load(bad_instance), yaml.full_load(schema))
+validate(yaml.full_load(bad_instance), schema)
