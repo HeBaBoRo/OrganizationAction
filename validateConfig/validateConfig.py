@@ -55,7 +55,7 @@ def main():
 
     if len(getUnvalidatableFiles(schemaFolderPath="/".join([actionPath, "configSchemas"]),
                                  configFolderPath=configFolderPath)) > 0:
-        raise Exception("[ERROR] Unvalidatable files found!")
+        raise Exception("Unvalidatable files found!")
 
     for validatableFile in getValidatableFiles(schemaFolderPath="/".join([actionPath, "configSchemas"]),
                                                configFolderPath=configFolderPath):
