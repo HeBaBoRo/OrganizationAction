@@ -61,8 +61,7 @@ def main():
 
     for validatableFile in getValidatableFiles(schemaFolderPath="/".join([actionPath, "configSchemas"]),
                                                configFolderPath=configFolderPath):
-        validateConfig(actionPath=actionPath,
-                       dataFile="/".join([configFolderPath, validatableFile]),
+        validateConfig(dataFile="/".join([configFolderPath, validatableFile]),
                        schemaFile="/".join([actionPath, "configSchemas", "membersSchema.yml"]))
 
 
