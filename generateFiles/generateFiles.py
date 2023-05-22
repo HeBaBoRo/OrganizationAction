@@ -21,19 +21,18 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
         lstrip_blocks=True,
         undefined=StrictUndefined,
     )
-    print("SOME THING")
     for templateFile in Path(templateFolder).glob('*.jinja2'):
         try:
+            print("Processing " + "/".join([outputFolder, templateFile.stem]))
             template = env.get_template(name=templateFile.name)
             out_data = template.render(data)
             print(out_data)
-            print("/".join([outputFolder, templateFile.stem]))
             with open("/".join([outputFolder, templateFile.stem]), "w") as file:
-                print("/".join([outputFolder, templateFile.stem]))
                 file.write(out_data)
+            print("Succesfully created " + "/".join([outputFolder, templateFile.stem]))
         except Exception as err:
+            print("An error occured while creating " + "/".join([outputFolder, templateFile.stem]))
             print(err)
-    print(os.listdir(outputFolder))
 
 
 def main():
