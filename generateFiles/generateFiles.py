@@ -20,6 +20,7 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
         lstrip_blocks=True,
         undefined=StrictUndefined,
     )
+    print("SOME THING")
     for templateFile in Path(templateFolder).glob('*.jinja2'):
         try:
             template = env.get_template(name=templateFile.name)
