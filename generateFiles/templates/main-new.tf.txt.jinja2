@@ -1,0 +1,20 @@
+{%- for organization in organizations -%}
+    {%- for account in accounts -%}
+        {%- if account.type == "DataDog" %}
+# Configure the DataDog Provider
+        {%- elif account.type == "GitHub" %}
+# Configure the GitHub Provider
+provider "github" {
+    token = var.github-token
+    owner = {{ account.name }}
+}
+
+data "github_organization" "github_organization_{{ organization.name }}_{{ account.name }}" {
+    name = {{ account.name }}
+}
+        {%- elif account.type == "Terraform Cloud" %}
+# Configure the Terraform Cloud Provider
+        {% endif %}
+    {%- endfor %}
+{%- endfor %}
+
