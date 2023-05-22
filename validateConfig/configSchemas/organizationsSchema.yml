@@ -28,5 +28,3 @@ properties:
             type:
               type: string
               pattern: "^(DataDog|Discord|GitHub|Slack|Terraform Cloud)$"
-          minItems: 1
-          uniqueItems: true
