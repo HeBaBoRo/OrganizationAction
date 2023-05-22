@@ -13,7 +13,7 @@ provider "github" {
 data "github_organization" "github_organization_{{ organization.name }}_{{ account.name }}" {
     name = {{ account.name }}
 }
-               {%- elif account.type == "Terraform Cloud" %}
+                {%- elif account.type == "Terraform Cloud" %}
                 {% endif %}
             {%- endfor %}
         {% endif %}
