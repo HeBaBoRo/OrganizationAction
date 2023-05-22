@@ -19,12 +19,12 @@ properties:
           items:
             type: object
             additionalProperties: false
-          required:
-            - name
-            - type
-          properties:
-            name:
-              type: string
-            account_type:
-              type: string
-              pattern: "^(DataDog|Discord|GitHub|Slack|Terraform Cloud)$"
+            required:
+              - name
+              - type
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                pattern: "^(DataDog|Discord|GitHub|Slack|Terraform Cloud)$"
