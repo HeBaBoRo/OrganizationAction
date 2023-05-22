@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
 
@@ -36,7 +37,7 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
 
 
 def main():
-    renderTemplate(dataFile="configVariables.yml", templateFolder="./templates", outputFolder="generated")
+    renderTemplate(dataFile="configVariables.yml", templateFolder="/".join([sys.argv[1], "templates"]), outputFolder="generated")
 
 
 if __name__ == "__main__":

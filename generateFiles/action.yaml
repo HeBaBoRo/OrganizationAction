@@ -32,4 +32,4 @@ runs:
       run: pip3 install -r $GITHUB_ACTION_PATH/requirements.txt
     - name: Generate files
       shell: bash
-      run: python3 $GITHUB_ACTION_PATH/generateFiles.py ${{ inputs.output-location }} ${{ inputs.config-file-name }}
+      run: python3 $GITHUB_ACTION_PATH/generateFiles.py $GITHUB_ACTION_PATH ${{ inputs.output-location }} ${{ inputs.config-file-name }}
