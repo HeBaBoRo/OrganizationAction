@@ -8,8 +8,8 @@ provider "tfe" {
   token    = var.terraform-token
 }
 
-data "github_organization" "github_organization_ZeewoldeSpeelt" {
-  name = "ZeewoldeSpeelt"
+data "github_organization" "github_organization_HeBaBoRo" {
+  name = "HeBaBoRo"
 }
 
 ####### Add users to the GitHub organization
@@ -141,7 +141,7 @@ resource "github_branch" "branch_{{ repo.name|trim|replace(" ", "_") }}_{{ branc
 
     {%- if branch.protection is defined %}
 resource "github_branch_protection" "branch_protection_{{ repo.name|trim|replace(" ", "_") }}_{{ branch.name|trim|replace(" ", "_") }}" {
-  count = data.github_organization.github_organization_ZeewoldeSpeelt.plan != "free" ? 1 : 0
+  count = data.github_organization.github_organization_HeBaBoRo.plan != "free" ? 1 : 0
   repository_id = github_repository.repository_{{ repo.name|trim|replace(" ", "_") }}.node_id
   # also accepts repository name
   # repository_id  = github_repository.repository_{{ repo.name|trim|replace(" ", "_") }}.name

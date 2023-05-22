@@ -28,7 +28,7 @@ properties:
                 type: array
                 items:
                   type: string
-                  pattern: "^(DataDog|GitHub|Terraform Cloud)$"
+                  pattern: "^(DataDog|Discord|GitHub|Slack|Terraform Cloud)$"
                 minItems: 1
                 uniqueItems: true
 #        is_datadog_team:
