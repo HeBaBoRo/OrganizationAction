@@ -26,6 +26,7 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
             out_data = template.render(data)
             print(out_data)
             with open("/".join([outputFolder, templateFile.stem]), "w") as file:
+                print("/".join([outputFolder, templateFile.stem]))
                 file.write(out_data)
         except Exception as err:
             print(err)
