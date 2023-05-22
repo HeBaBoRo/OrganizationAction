@@ -26,7 +26,6 @@ def renderTemplate(dataFile, templateFolder, outputFolder="generated"):
             print("Processing " + "/".join([outputFolder, templateFile.stem]))
             template = env.get_template(name=templateFile.name)
             out_data = template.render(data)
-            print(out_data)
             with open("/".join([outputFolder, templateFile.stem]), "w") as file:
                 file.write(out_data)
             print("Succesfully created " + "/".join([outputFolder, templateFile.stem]))
