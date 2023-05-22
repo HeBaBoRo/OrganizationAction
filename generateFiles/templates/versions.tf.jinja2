@@ -13,14 +13,14 @@ terraform {
       source = "hashicorp/tfe"
       version = "0.44.1"
     }
-{%- if terraform is defined -%}
-{%- if terraform.additional_providers is defined -%}
-{%- for provider in terraform.additional_providers -%}
+{% if terraform is defined %}
+{% if terraform.additional_providers is defined %}
+{% for provider in terraform.additional_providers %}
     {{ provider.name }} = {
     source = {{ provider.source }}
     version = {{ provider.version }}
     }
-{%- endfor %}
+{% endfor %}
 {% endif %}
 {% endif %}
   }

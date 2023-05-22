@@ -1,9 +1,9 @@
-{%- if terraform is defined -%}
-{%- if terraform.variables is defined -%}
-{%- for variable in terraform.variables -%}
+{% if terraform is defined %}
+{% if terraform.variables is defined %}
+{% for variable in terraform.variables %}
 variable "{{variable.name|trim}}" {
   description = "{{variable.description|default("")|trim}}"
 }
-{%- endfor %}
+{% endfor %}
 {% endif %}
 {% endif %}
