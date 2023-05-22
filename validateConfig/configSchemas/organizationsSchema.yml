@@ -25,6 +25,6 @@ properties:
           properties:
             name:
               type: string
-            type:
+            account_type:
               type: string
               pattern: "^(DataDog|Discord|GitHub|Slack|Terraform Cloud)$"
